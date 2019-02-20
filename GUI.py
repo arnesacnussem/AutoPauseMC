@@ -63,4 +63,4 @@ class GUI(QWidget):
     @pyqtSlot(name="chb onToggle")
     def on_toggle(self):
         print("checkBox toggled")
-        print(self._autoDetectCB.isChecked())
+        self._controller.on_cb_toggled(self._autoDetectCB.isChecked())
