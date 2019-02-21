@@ -9,6 +9,7 @@ class wxGUI(wx.Frame):
     def __init__(self):
         super().__init__(None, style=_style)
         self.SetTitle("AutoPauseMC")
+        self.SetIcon(wx.Icon("8.ico", wx.BITMAP_TYPE_ICO))
         self.SetSize(300, 110)
         self.SetPosition((300, 300))
         self._button = wx.Button(self, label="Toggle", pos=(7, 7), size=(80, 30))
