@@ -27,13 +27,13 @@ class Controller:
         self.GUI_msg(msg)
 
     def on_focus(self):
-        self.send_msg("Focused,resume...")
+        self.send_msg("Focused")
         self._proc_mon.mcProc.resume()
         self.on_status_changed()
         self.send_msg("resumed")
 
     def on_focus_loss(self):
-        self.send_msg("Focus loss,pausing...")
+        self.send_msg("Focus loss")
         self._proc_mon.mcProc.suspend()
         self.on_status_changed()
         self.send_msg("paused")

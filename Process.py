@@ -1,7 +1,7 @@
 import psutil
 import globalVar
-from win32gui import *
-from win32process import *
+from win32gui import GetWindowText, IsWindow, IsWindowEnabled, IsWindowVisible, EnumWindows
+from win32process import GetWindowThreadProcessId
 
 found = False
 mc_process = None
@@ -42,7 +42,8 @@ def find_mc(monitor_mod=False, mc_proc=Proc(-1, -1, None)):
             title = GetWindowText(hwnd)
             if "minecraft".upper() in title.upper():
                 if debug:
-                    print("[DEBUG]find_mc->check_is_mc: hwnd = %s | pid = %s | name = %s | title = %s" % (hwnd, pid, name, title))
+                    print("[DEBUG]find_mc->check_is_mc: hwnd = %s | pid = %s | name = %s | title = %s" % (
+                        hwnd, pid, name, title))
                 if "java" in name:
                     global found, mc_process
                     mc_process = Proc(hwnd, pid, name)
@@ -75,7 +76,7 @@ def find_mc_dwm():
         if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
             pid = GetWindowThreadProcessId(hwnd)[1]
             if "dwm" in psutil.Process(pid).name() and "minecraft".upper() in str(GetWindowText(hwnd)).upper():
-                if not debug:
+                if debug:
                     print("[DEBUG]find_mc_dwm(): pid = %s | hwnd = %s" % (pid, hwnd))
                 global dmw
                 dmw = hwnd

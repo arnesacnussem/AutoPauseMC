@@ -131,20 +131,18 @@ class FocusMonitor(ABCThread):
         if not self._enabled or self._status is Status.stop:
             self.set_wait_time(1.5)
             return
-        if not globalVar.get_value("debug", False):
+        if globalVar.get_value("debug", False):
             print("[DEBUG]FocusMonitor->loop: _hwnd = %s | _status = %s | Foreground = %s" % (
                 self._hwnd, self._status, GetForegroundWindow()))
         if self._foreground.set(GetForegroundWindow()):
             self.set_wait_time(0.5)
-            print(find_mc_dwm())
-            print(GetWindowText(self._foreground.get()))
             if Status.suspend and ("minecraft".upper() in str(GetWindowText(self._foreground.get())).upper()):
-                print("resume!!!!!!!!")
+                print("request resume")
                 self.send_resume()
                 time.sleep(1)
             else:
                 if self._status is Status.running:
-                    print("suspend!!!!!!!!!")
+                    print("request suspend")
                     self.send_pause()
                     time.sleep(1)
 

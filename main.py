@@ -1,11 +1,11 @@
 import globalVar
-import sys
-from PyQt5.QtWidgets import QApplication
-from GUI import GUI
+
+from wxGUI import wxGUI, wxApp
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = wxApp()
     globalVar.init()
     globalVar.set_value("debug", False)
-    gui = GUI()
-    sys.exit(app.exec_())
+    gui = wxGUI()
+    app.set_thread_killer(gui.stop_controller)
+    app.MainLoop()
